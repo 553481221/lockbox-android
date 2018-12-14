@@ -28,7 +28,6 @@ import mozilla.lockbox.store.AccountStore
 import mozilla.lockbox.store.DataStore
 import mozilla.lockbox.store.FingerprintStore
 import mozilla.lockbox.store.SettingStore
-import mozilla.lockbox.support.asOptional
 
 interface ItemListView {
     val itemSelection: Observable<ItemViewModel>
@@ -118,7 +117,7 @@ class ItemListPresenter(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(view::updateAccountProfile, {
                 log.error("Lifecycle problem caused ${it.javaClass.simpleName} here", it)
-                }, {
+            }, {
                 log.info("onCompleted: ${javaClass.simpleName}")
             })
             .addTo(compositeDisposable)
@@ -133,10 +132,5 @@ class ItemListPresenter(
             else -> return log.error("Cannot route from item list menu")
         }
         dispatcher.dispatch(action)
-    }
-
-
-    private fun setFaqUrl(){
-        // tell WebViewFragment that we have an action
     }
 }
